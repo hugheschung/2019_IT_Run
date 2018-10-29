@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+  <div class="w3-container w3-blue">
+    <h2>Input Form</h2>
+  </div>
+
+  <form class="w3-container">
+<img id="id_img_show" src=" "  style="width:100%" hidden>
+    <p>
+    <label>訊息</label>
+    <input id="id1" class="w3-input" type="text"></p>
+    <p>
+    <label>找圖片(輸入檔名)</label>
+    <input id="id2" class="w3-input" type="text" value="img1.jpg"></p>
+    <p>
+
+  </form>
+<button onclick="websocket_link()" class="w3-button w3-black">websocket 連線</button>
+<button onclick="ws_send()" class="w3-button w3-black">訊息發送</button>
+<button onclick="img_show()" class="w3-button w3-red"> 找圖片 show</button>
+<button onclick="img_vis()" class="w3-button w3-red"> 圖片隱藏</button>
+<button  class="w3-button w3-blue"><a href="https://www.w3cvip.org/topics/181">更多websocket介紹...</a></button>
+
+<script type="text/javascript">
+
+  function websocket_link() {
+    //定義websocket連線
+  url="ws:localhost:8888/ws" ;
+  ws = new WebSocket(url);
+
+//定義:連線開啟時的動作
+  ws.onopen = function() {
+    var x = "hello,這是黑修斯在day19寫的測試頁" ;
+    ws.send(x);
+  };
+
+//定義:有訊息進來時的動作
+  ws.onmessage = function (evt) {
+    xx = evt.data  //外部變數xx,用於調試檢查內容
+    console.log(xx);
+     alert(evt.data);
+  };
+
+//定義:連線中斷時的動作
+  ws.onclose=function(){
+    alert("斷線了");
+  };
+};
+  function ws_send() {
+    ws.send(id1.value)
+  }
+  function img_show() {
+    id_img_show.src = "http://localhost:8888/image/jpg/"+ id2.value ;
+    id_img_show.hidden = 0;
+  };
+  function img_vis() {
+    id_img_show.hidden = 1;
+  }
+</script>
+</body>
+</html>
