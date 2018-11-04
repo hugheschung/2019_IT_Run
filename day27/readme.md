@@ -1,1 +1,1 @@
-¦p¦ó«Ø¸m¦¨mobile app¡A½Ğ°Ñ¦Ò [day5](https://ithelp.ithome.com.tw/articles/10201280)
+å¦‚ä½•å»ºç½®æˆmobile appï¼Œè«‹åƒè€ƒ [day5](https://ithelp.ithome.com.tw/articles/10201280)
