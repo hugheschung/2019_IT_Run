@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<label for="">user_id</label>
+<input type="text" name="" value=""><br>
+<label for="">message</label>
+<input id="id_message" type="text" name="" value=""><br>
+
+<button type="button" name="button">link</button><br>
+<button onclick="ws_send()" type="button" name="button">send</button>
+
+<script type="text/javascript">
+  url="ws:localhost:8888/ws"
+  ws = new WebSocket(url)
+  ws.onopen = function() {
+    console.log("link");
+  };
+
+  //定義:有訊息進來時的動作
+  ws.onmessage = function (evt) {
+    xx = evt.data  //外部變數xx,用於調試檢查內容
+    console.log(xx);
+
+  };
+
+  //定義:連線中斷時的動作
+  ws.onclose=function(){
+    alert("斷線了");
+  };
+  function ws_send() {
+    ws.send(id_message.value)
+  };
+</script>
+  </body>
+</html>

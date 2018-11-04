@@ -1,0 +1,59 @@
+<!---
+檔案名稱：one_page_v3.html
+檔案用途：與後端連線測試頁
+日期：2018/11/03
+--->
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/w3.css">
+  </head>
+  <body>
+
+<div class="w3-container w3-blue">
+  <h2>day22的測試頁(註冊與查詢)</h2>
+</div>
+
+<form class="w3-container">
+  <p>
+  <label>帳號</label>
+  <input id="id_user_id" class="w3-input" type="text" ></p>
+  <p>
+  <label>輸入訊息</label>
+  <input id="id_message" class="w3-input" type="text" ></p>
+</form>
+<button onclick="ws_send()" class="w3-button w3-red">發送訊息</button>
+
+<script type="text/javascript">
+  //定義websocket連線
+
+  url="ws:localhost:8888/ws" ;
+  ws = new WebSocket(url);
+
+  //定義:連線開啟時的動作
+  ws.onopen = function() {    console.log("link");
+  };
+
+  //定義:有訊息進來時的動作
+  ws.onmessage = function (evt) {
+    xx = evt.data  //外部變數xx,用於調試檢查內容
+    console.log(xx);
+
+  };
+
+  //定義:連線中斷時的動作
+  ws.onclose=function(){
+    alert("斷線了");
+  };
+
+
+
+function ws_send() {
+  ws.send(id_message.value)
+};
+
+
+</script>
+
+  </body>
+</html>
