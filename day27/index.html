@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
+  <script src="onsenui/js/onsenui.min.js"></script>
+  <script src="jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+  <ons-page>
+    <div style="text-align: center; margin-top: 30px;">
+      <p>
+        <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+      </p>
+      <p>
+        <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+      </p>
+      <p style="margin-top: 30px;">
+        <ons-button onclick="login_send()">Sign in</ons-button>
+      </p>
+    </div>
+  </ons-page>
+
+<script>
+//定義websocket連線
+
+url="ws:localhost:8888/ws" ;
+ws = new WebSocket(url);
+
+//定義:連線開啟時的動作
+ws.onopen = function() {    console.log("link");
+};
+
+//定義:有訊息進來時的動作
+ws.onmessage = function (evt) {
+  xx = evt.data  //外部變數xx,用於調試檢查內容
+  console.log(xx);
+
+};
+
+//定義:連線中斷時的動作
+ws.onclose=function(){
+  alert("斷線了");
+};
+
+
+  function login_send() {
+    var y = {
+      "parse":1,
+      "user_id":username.value,
+      "password":password.value,
+    };
+    var x = JSON.stringify(y)
+    ws.send(x)
+  }
+</script>
+</body>
+</html>
