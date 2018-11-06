@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
+    <script src="onsenui/js/onsenui.min.js"></script>
+    <script src="jquery/dist/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Tab 1</div>
+      </ons-toolbar>
+
+      <ons-tabbar swipeable position="button">
+        <ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+        </ons-tab>
+        <ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+        </ons-tab>
+      </ons-tabbar>
+    </ons-page>
+
+    <template id="tab1.html">
+      <ons-page id="Tab1">
+        <p style="text-align: center;">
+          This is the first page.
+        </p>
+      </ons-page>
+    </template>
+
+    <template id="tab2.html">
+      <ons-page id="Tab2">
+        <p style="text-align: center;">
+          This is the second page.
+        </p>
+      </ons-page>
+    </template>
+
+<script type="text/javascript">
+  document.addEventListener('prechange', function(event) {
+  document.querySelector('ons-toolbar .center')
+    .innerHTML = event.tabItem.getAttribute('label');
+});
+</script>
+
+
+  </body>
+</html>

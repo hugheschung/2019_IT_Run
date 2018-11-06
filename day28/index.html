@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
+  <script src="onsenui/js/onsenui.min.js"></script>
+  <script src="jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+
+  <ons-page>
+  <ons-toolbar>
+    <div class="center">Tab 1</div>
+  </ons-toolbar>
+
+  <ons-tabbar swipeable position="button">
+    <ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+    </ons-tab>
+    <ons-tab page="tab2.html" label="Tab 2" icon="fa-address-card" active-icon="md-face">
+    </ons-tab>
+    <ons-tab page="tab3.html" label="Tab 3" icon="ion-navicon, material:md-menu" active-icon="md-face">
+    </ons-tab>
+    <ons-tab page="tab4.html" label="Tab 4" icon="md-settings" active-icon="md-face">
+    </ons-tab>
+
+  </ons-tabbar>
+</ons-page>
+
+<!--第一頁 -->
+<template id="tab1.html">
+  <ons-page id="Tab1">
+      <div style="text-align: center; margin-top: 30px;">
+        <p>
+          <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+        </p>
+        <p>
+          <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+        </p>
+        <p style="margin-top: 30px;">
+          <ons-button onclick="login_send()">Sign in</ons-button>
+        </p>
+      </div>
+  </ons-page>
+</template>
+
+<!--第二頁 -->
+<template id="tab2.html">
+  <ons-page id="Tab2">
+    <p style="text-align: center;">
+      This is the second page.
+    </p>
+  </ons-page>
+</template>
+
+<!--第三頁 -->
+<template id="tab3.html">
+  <ons-page id="Tab3">
+    <p style="text-align: center;">
+      This is the second page.
+    </p>
+  </ons-page>
+</template>
+
+<!--第四頁 -->
+<template id="tab4.html">
+  <ons-page id="Tab4">
+    <p style="text-align: center;">
+      This is the second page.
+    </p>
+  </ons-page>
+</template>
+
+
+<script>
+
+document.addEventListener('prechange', function(event) {
+document.querySelector('ons-toolbar .center')
+  .innerHTML = event.tabItem.getAttribute('label');
+});
+//定義websocket連線
+
+url="ws:localhost:8888/ws" ;
+ws = new WebSocket(url);
+
+//定義:連線開啟時的動作
+ws.onopen = function() {    console.log("link");
+};
+
+//定義:有訊息進來時的動作
+ws.onmessage = function (evt) {
+  xx = evt.data  //外部變數xx,用於調試檢查內容
+  console.log(xx);
+
+};
+
+//定義:連線中斷時的動作
+ws.onclose=function(){
+  alert("斷線了");
+};
+
+
+  function login_send() {
+    var y = {
+      "parse":1,
+      "user_id":username.value,
+      "password":password.value,
+    };
+    var x = JSON.stringify(y)
+    ws.send(x)
+    setTimeout(function(){
+      if (xx=="P0"){
+      ons.notification.alert("這是onsenUI提供的alert功能，顯示這個代表登陸成功了。")
+    }else if (xx == "P1") {
+      alert("密碼錯誤")
+    }else if (xx == "L1") {
+      alert("帳號錯誤")
+    }
+    }, 1000);
+  }
+</script>
+</body>
+</html>
