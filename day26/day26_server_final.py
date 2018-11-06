@@ -91,20 +91,20 @@ class IThelp_SocketHandler(tornado.websocket.WebSocketHandler):
                 user_id=dt['user_id']
                 password = dt ['password']
                 x = dbtest.get_data("user",{"user_id":"A1234567"})
-                try:
-                    if user_id in x[0]["user_id"]:
-                        print("登陸帳號成功")
-                        self.write_message("L0")
-                except:
-                    print("帳號輸入錯誤")
-                    self.write_message("L1")
-                try:
-                    if password in x[0]["password"]:
+                
+                if user_id == x[0]["user_id"]:
+                    print("登陸帳號成功")
+                    self.write_message("L0")
+                    if password == x[0]["password"]:
                         print("輸入密碼成功")
                         self.write_message("P0")
-                except:
-                    print("密碼輸入錯誤")
-                    self.write_message("P1")
+                    else:
+                        print("密碼輸入錯誤")
+                        self.write_message("P1")
+                else:
+                    print("帳號輸入錯誤")
+                    self.write_message("L1")
+                    
         except:
             print("封包格式錯誤")
             self.write_message("type_err")
